@@ -1,0 +1,51 @@
+schema = "animus.plugin.v1"
+name = "animus-subject-zendesk"
+version = "0.1.0"
+plugin_kind = "subject_backend"
+description = "Zendesk Support ticket subject backend for Animus"
+
+[capabilities]
+streaming = false
+progress = false
+cancellation = false
+subject_kinds = ["ticket"]
+methods = [
+  "subject/list",
+  "subject/get",
+  "subject/update",
+  "subject/schema",
+  "health/check",
+]
+
+[binary]
+default = "animus-subject-zendesk"
+
+[[env]]
+key = "ZENDESK_SUBDOMAIN"
+description = "Zendesk subdomain used to build https://<subdomain>.zendesk.com when ZENDESK_BASE_URL is unset."
+required = false
+sensitive = false
+
+[[env]]
+key = "ZENDESK_BASE_URL"
+description = "Override Zendesk account base URL, for example https://example.zendesk.com."
+required = false
+sensitive = false
+
+[[env]]
+key = "ZENDESK_EMAIL"
+description = "Zendesk agent email used with API token authentication."
+required = true
+sensitive = false
+
+[[env]]
+key = "ZENDESK_API_TOKEN"
+description = "Zendesk API token."
+required = true
+sensitive = true
+
+[[env]]
+key = "ZENDESK_QUERY"
+description = "Optional Zendesk search query for subject/list, for example type:ticket status<solved."
+required = false
+sensitive = false
